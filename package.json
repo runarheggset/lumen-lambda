@@ -1,0 +1,28 @@
+{
+  "name": "lumen-lambda",
+  "version": "1.0.0",
+  "description": "Allows php to respond to http requests on aws lambda.",
+  "main": "index.js",
+  "dependencies": {
+    "http-string-parser": "^0.0.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/runar1/lumen-lambda.git"
+  },
+  "keywords": [
+    "lumen",
+    "php",
+    "lambda"
+  ],
+  "author": "Runar Heggset",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/runar1/lumen-lambda/issues"
+  },
+  "homepage": "https://github.com/runar1/lumen-lambda#readme"
+}
