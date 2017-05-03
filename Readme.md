@@ -4,7 +4,7 @@ lumen-lambda allows lumen to be executed with php through NodeJS.
  
 ## Installation
 
-The project comes with a prebuilt php-cgi-7.1.3. Feel free to build your own.
+The project comes with a prebuilt php-cgi-7.1.4. Feel free to build your own.
 
 - npm install
 
@@ -12,6 +12,7 @@ The project comes with a prebuilt php-cgi-7.1.3. Feel free to build your own.
 
 - Create a lambda function on aws.
 - Make sure lumen is writing to /tmp or not at all.
+- Make sure to chmod 777 php-cgi.
 - zip the project with your lumen application placed in the lumen folder. Laravel should also work.
 - Point aws API Gateway to your newly generated lambda function.
 

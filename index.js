@@ -17,6 +17,13 @@ exports.handler = function(event, context) {
         });
     }
 
+    // create query parameters string
+    var queryParams = Object.keys(event.queryStringParameters).map(function(key) {
+        var obj = key + "=" + event.queryStringParameters[key];
+        return obj;
+    });
+    var queryParamsStr = "?" + queryParams.join("&");
+
     // Spawn the PHP CGI process with a bunch of environment variables that describe the request.
     var php = spawn('./php-cgi', ['lumen/public/index.php'], {
         env: Object.assign({
@@ -27,7 +34,7 @@ exports.handler = function(event, context) {
             PATH_INFO: '/',
             SERVER_NAME: serverName,
             SERVER_PROTOCOL: 'HTTP/1.1',
-            REQUEST_URI: requestUri
+            REQUEST_URI: requestUri + queryParamsStr
         }, headers)
     });
 
