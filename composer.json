@@ -1,7 +1,7 @@
 {
     "name": "runar1/lumen-lambda",
     "type": "project",
-    "version": "0.0.2",
+    "version": "1.0.0",
     "description": "Enables lumen to run on AWS Lambda.",
     "keywords": ["laravel", "lumen", "amazon", "aws", "lambda"],
     "homepage": "https://github.com/runar1/lumen-lambda",
