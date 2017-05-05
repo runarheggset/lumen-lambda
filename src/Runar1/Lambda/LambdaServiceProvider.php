@@ -4,7 +4,7 @@ namespace Runar1\Lambda;
 
 use Illuminate\Support\ServiceProvider;
 
-class LambdaServiceProvider {
+class LambdaServiceProvider extends ServiceProvider {
 
 	/**
 	 * Bootstrap the application events.
@@ -17,12 +17,14 @@ class LambdaServiceProvider {
 	 * Register the service provider.
 	 */
 	public function register() {
-		$this->app->configureMonologUsing(function($monolog) {
-			$syslog = new \Monolog\Handler\SyslogHandler('lumen');
-			$formatter = new \Monolog\Formatter\LineFormatter(null, null, false, true);
-			$syslog->setFormatter($formatter);
-			$monolog->pushHandler($syslog);
-			return $monolog;
-		});
+		if (env('AWS_LAMBDA') === true) {
+			$this->app->configureMonologUsing(function($monolog) {
+				$syslog = new \Monolog\Handler\SyslogHandler('lumen');
+				$formatter = new \Monolog\Formatter\LineFormatter(null, null, false, true);
+				$syslog->setFormatter($formatter);
+				$monolog->pushHandler($syslog);
+				return $monolog;
+			});
+		}
 	}
 }
