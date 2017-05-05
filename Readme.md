@@ -20,10 +20,10 @@ $app->register(Runar1\Lumen\LumenServiceProvider::class);
 
 The project comes with a prebuilt php-cgi-7.1.4. Feel free to build your own.
 
-- Create a lambda function on aws.
+- Create a lambda function on AWS.
 - Make sure lumen is writing to /tmp or not at all.
-- Make sure to chmod 777 php-cgi.
-- Point aws API Gateway to your newly generated lambda function.
+- Make sure to chmod 777 php-cgi (Windows removes this).
+- Point AWS API Gateway to your newly generated lambda function.
 
 For more indepth tips, read this excellent blog post: https://cwhite.me/hosting-a-laravel-application-on-aws-lambda/.
 
@@ -37,10 +37,11 @@ For more indepth tips, read this excellent blog post: https://cwhite.me/hosting-
  
 ## History
  
-Version 1.0 (2017-05-02) - Initial features
+Version 0.0.1 (2017-05-02) - Initial features
  
 ## Credits
  
+Runar Heggset
 Chris White (https://cwhite.me/)
  
 ## License
