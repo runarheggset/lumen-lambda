@@ -8,7 +8,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/runar1/lumen-lambda.gi"
+            "url": "https://github.com/runar1/lumen-lambda.git"
         }
     ],
     "scripts": {
