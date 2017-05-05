@@ -28,11 +28,11 @@ exports.handler = function(event, context) {
     }
 
     // Spawn the PHP CGI process with a bunch of environment variables that describe the request.
-    let php = spawn('./bin/php-cgi', ['lumen/public/index.php'], {
+    let php = spawn('./vendor/runar1/lumen-lambda/bin/php-cgi', ['public/index.php'], {
         env: Object.assign({
             REDIRECT_STATUS: 200,
             REQUEST_METHOD: requestMethod,
-            SCRIPT_FILENAME: 'lumen/public/index.php',
+            SCRIPT_FILENAME: 'public/index.php',
             SCRIPT_NAME: '/index.php',
             PATH_INFO: '/',
             SERVER_NAME: serverName,
