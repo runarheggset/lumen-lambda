@@ -1,0 +1,19 @@
+{
+    "name": "Runar1/lumen-lambda",
+    "version": "0.0.1",
+    "description": "Enables lumen to run on AWS Lambda.",
+    "keywords": ["laravel", "lumen", "amazon", "aws", "lambda"],
+    "license": "MIT",
+    "type": "project",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Runar1/lumen-lambda"
+        }
+    ],
+    "scripts": {
+        "post-root-package-install": [
+            "npm install"
+        ]
+    }
+}
