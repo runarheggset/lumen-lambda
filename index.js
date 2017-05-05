@@ -8,6 +8,7 @@ exports.handler = function(event, context) {
     var serverName = event.headers ? event.headers.Host : '';
     var requestUri = event.path || '';
     var headers = {};
+    var queryParamsStr = '';
 
     // Convert all headers passed by API Gateway into the correct format for PHP CGI. This means converting a header
     // such as "X-Test" into "HTTP_X-TEST".
@@ -23,7 +24,7 @@ exports.handler = function(event, context) {
             var obj = key + "=" + event.queryStringParameters[key];
             return obj;
         });
-        var queryParamsStr = queryParams.join("&");
+        queryParamsStr = queryParams.join("&");
     }
 
     // Spawn the PHP CGI process with a bunch of environment variables that describe the request.
@@ -38,7 +39,7 @@ exports.handler = function(event, context) {
             SERVER_PROTOCOL: 'HTTP/1.1',
             REQUEST_URI: requestUri,
             QUERY_STRING: queryParamsStr
-        }, headers)
+        }, headers, process.env)
     });
 
     // Listen for output on stdout, this is the HTTP response.
