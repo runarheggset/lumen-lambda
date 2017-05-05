@@ -1,6 +1,6 @@
 {
   "name": "lumen-lambda",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Allows php to respond to http requests on aws lambda.",
   "main": "index.js",
   "dependencies": {

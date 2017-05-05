@@ -28,7 +28,7 @@ exports.handler = function(event, context) {
     }
 
     // Spawn the PHP CGI process with a bunch of environment variables that describe the request.
-    let php = spawn('./php-cgi', ['lumen/public/index.php'], {
+    let php = spawn('./bin/php-cgi', ['lumen/public/index.php'], {
         env: Object.assign({
             REDIRECT_STATUS: 200,
             REQUEST_METHOD: requestMethod,
@@ -38,7 +38,8 @@ exports.handler = function(event, context) {
             SERVER_NAME: serverName,
             SERVER_PROTOCOL: 'HTTP/1.1',
             REQUEST_URI: requestUri,
-            QUERY_STRING: queryParams
+            QUERY_STRING: queryParams,
+            AWS_LAMBDA: true
         }, headers, process.env)
     });
 

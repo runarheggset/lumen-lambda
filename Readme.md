@@ -1,19 +1,28 @@
 # lumen-lambda
  
-lumen-lambda allows lumen to be executed with php through NodeJS.  
+[![Latest Stable Version](https://img.shields.io/github/release/Runar1/lumen-lambda.svg)](https://packagist.org/packages/runar1/lumen-lambda) [![Total Downloads](https://img.shields.io/packagist/dm/Runar1/lumen-lambda.svg)](https://packagist.org/packages/runar1/lumen-lambda)
+
+A package for running lumen on AWS Lambda.
  
 ## Installation
 
-The project comes with a prebuilt php-cgi-7.1.4. Feel free to build your own.
+Installation using composer:
+```
+composer require runar1/lumen-lambda
+```
 
-- npm install
+And add the service provider in `bootstrap/app.php`:
+```php
+$app->register(Runar1\Lumen\LumenServiceProvider::class);
+```
 
 ## Usage
+
+The project comes with a prebuilt php-cgi-7.1.4. Feel free to build your own.
 
 - Create a lambda function on aws.
 - Make sure lumen is writing to /tmp or not at all.
 - Make sure to chmod 777 php-cgi.
-- zip the project with your lumen application placed in the lumen folder. Laravel should also work.
 - Point aws API Gateway to your newly generated lambda function.
 
 For more indepth tips, read this excellent blog post: https://cwhite.me/hosting-a-laravel-application-on-aws-lambda/.
