@@ -1,10 +1,11 @@
-const spawn  = require('child_process').spawn;
+const spawn  = require('child_process').spawnSync;
 const parser = require('http-string-parser');
 
 exports.handler = function(event, context) {
     // Sets some sane defaults here so that this function doesn't fail 
     // when it's not handling a HTTP request from API Gateway.
     let requestMethod = event.httpMethod || 'GET';
+    let requestBody = event.body || '';
     let serverName = event.headers ? event.headers.Host : '';
     let requestUri = event.path || '';
     let headers = {};
@@ -39,26 +40,19 @@ exports.handler = function(event, context) {
             SERVER_PROTOCOL: 'HTTP/1.1',
             REQUEST_URI: requestUri,
             QUERY_STRING: queryParams,
-            AWS_LAMBDA: true
-        }, headers, process.env)
-    });
-
-    // Listen for output on stdout, this is the HTTP response.
-    let response = '';
-    php.stdout.on('data', function(data) {
-        response += data.toString('utf-8');
+            AWS_LAMBDA: true,
+            CONTENT_LENGTH: requestBody.length
+        }, headers, process.env),
+        input: requestBody
     });
 
     // When the process exists, we should have a complete HTTP response to send back to API Gateway.
-    php.on('close', function(code) {
-        // Parses a raw HTTP response into an object that we can manipulate into the required format.
-        let parsedResponse = parser.parseResponse(response);
+    let parsedResponse = parser.parseResponse(php.stdout.toString('utf-8'));
 
-        // Signals the end of the Lambda function, and passes the provided object back to API Gateway.
-        context.succeed({
-            statusCode: parsedResponse.statusCode || 200,
-            headers: parsedResponse.headers,
-            body: parsedResponse.body
-        });
+    // Signals the end of the Lambda function, and passes the provided object back to API Gateway.
+    context.succeed({
+        statusCode: parsedResponse.statusCode || 200,
+        headers: parsedResponse.headers,
+        body: parsedResponse.body
     });
 };
