@@ -37,15 +37,15 @@ For more indepth tips, read this excellent blog post: https://cwhite.me/hosting-
  
 ## History
  
--Version 1.1.1 (2017-05-09) - Fixed bug where request body wasn't sent to php-cgi
--Version 1.1.0 (2017-05-08) - Added support for MongoDB
--Version 1.0.0 (2017-05-05) - First public release
--Version 0.0.1 (2017-05-02) - Initial features
+- Version 1.1.1 (2017-05-09) - Fixed bug where request body wasn't sent to php-cgi
+- Version 1.1.0 (2017-05-08) - Added support for MongoDB
+- Version 1.0.0 (2017-05-05) - First public release
+- Version 0.0.1 (2017-05-02) - Initial features
  
 ## Credits
  
--Runar Heggset
--Chris White (https://cwhite.me/)
+- Runar Heggset
+- Chris White (https://cwhite.me/)
  
 ## License
  
