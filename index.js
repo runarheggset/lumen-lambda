@@ -15,7 +15,8 @@ exports.handler = function(event, context) {
     // This means converting a header such as "X-Test" into "HTTP_X-TEST".
     if (event.headers) {
         Object.keys(event.headers).map(function (key) {
-            headers['HTTP_' + key.toUpperCase()] = event.headers[key];
+            headers['HTTP_' + key.toUpperCase().replace(/-/g, '_')] = event.headers[key];
+            headers[key.toUpperCase().replace(/-/g, '_')] = event.headers[key];
         });
     }
 
