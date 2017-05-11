@@ -41,7 +41,7 @@ exports.handler = function(event, context) {
             REQUEST_URI: requestUri,
             QUERY_STRING: queryParams,
             AWS_LAMBDA: true,
-            CONTENT_LENGTH: requestBody.length
+            CONTENT_LENGTH: Buffer.byteLength(requestBody, 'utf-8')
         }, headers, process.env),
         input: requestBody
     });
