@@ -38,6 +38,7 @@ For more indepth tips, read this excellent blog post: https://cwhite.me/hosting-
  
 ## History
  
+- Version 1.2.0 (2017-05-17) - Added curl certificate
 - Version 1.1.2 (2017-05-11) - Fixed bugs with POST requests
 - Version 1.1.1 (2017-05-09) - Fixed bug where request body wasn't sent to php-cgi
 - Version 1.1.0 (2017-05-08) - Added support for MongoDB
