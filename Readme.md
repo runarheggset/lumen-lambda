@@ -11,9 +11,18 @@ Installation using composer:
 composer require runar1/lumen-lambda
 ```
 
-And add the service provider in `bootstrap/app.php`:
+Add the service provider in `bootstrap/app.php`:
 ```php
 $app->register(Runar1\Lambda\LambdaServiceProvider::class);
+```
+
+Require the helper file first in `bootstrap/app.php`:
+```php
+require_once __DIR__.'/../vendor/runar1/lumen-lambda/src/helpers.php';
+```
+Before 
+```php
+require_once __DIR__.'/../vendor/autoload.php';
 ```
 
 ## Usage
@@ -38,7 +47,7 @@ For more indepth tips, read this excellent blog post: https://cwhite.me/hosting-
  
 ## History
  
-- Version 1.2.0 (2017-05-17) - Added curl certificate
+- Version 1.1.3 (2017-05-17) - Changed storage path
 - Version 1.1.2 (2017-05-11) - Fixed bugs with POST requests
 - Version 1.1.1 (2017-05-09) - Fixed bug where request body wasn't sent to php-cgi
 - Version 1.1.0 (2017-05-08) - Added support for MongoDB
