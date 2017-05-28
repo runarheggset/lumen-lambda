@@ -11,9 +11,18 @@ Installation using composer:
 composer require runar1/lumen-lambda
 ```
 
-And add the service provider in `bootstrap/app.php`:
+Add the service provider in `bootstrap/app.php`:
 ```php
 $app->register(Runar1\Lambda\LambdaServiceProvider::class);
+```
+
+Require the helper file first in `bootstrap/app.php`:
+```php
+require_once __DIR__.'/../vendor/runar1/lumen-lambda/src/helpers.php';
+```
+Before 
+```php
+require_once __DIR__.'/../vendor/autoload.php';
 ```
 
 ## Usage
@@ -22,8 +31,7 @@ The project comes with a prebuilt php-cgi-7.0.16. Feel free to build your own.
 
 - Create a lambda function on AWS.
 - Make sure lumen is writing to /tmp or not at all.
-- Make sure to chmod 777 php-cgi (Windows removes this).
-- Set lambda handler to vendor/runar1/lumen-lambda/index.handler.
+- Set lambda handler to ```vendor/runar1/lumen-lambda/index.handler```
 - Point AWS API Gateway to your newly generated lambda function.
 
 For more indepth tips, read this excellent blog post: https://cwhite.me/hosting-a-laravel-application-on-aws-lambda/.
@@ -37,7 +45,8 @@ For more indepth tips, read this excellent blog post: https://cwhite.me/hosting-
 5. Submit a pull request :D
  
 ## History
- 
+
+- Version 1.3.0 (2017-05-29) - Added command to deploy function
 - Version 1.2.0 (2017-05-17) - Added curl certificate
 - Version 1.1.2 (2017-05-11) - Fixed bugs with POST requests
 - Version 1.1.1 (2017-05-09) - Fixed bug where request body wasn't sent to php-cgi

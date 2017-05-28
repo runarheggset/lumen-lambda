@@ -26,5 +26,8 @@ class LambdaServiceProvider extends ServiceProvider {
 				return $monolog;
 			});
 		}
+		$this->commands([
+			Commands\Deploy::class
+		]);
 	}
 }
