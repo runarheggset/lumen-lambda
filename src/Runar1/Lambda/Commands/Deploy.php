@@ -2,6 +2,10 @@
 
 namespace Runar1\Lambda\Commands;
 
+use ZipArchive;
+use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
+
 use Aws\Lambda\LambdaClient;
 
 use Illuminate\Console\Command;
@@ -42,44 +46,57 @@ class Deploy extends Command {
 		}
 		$data = file_get_contents(storage_path('app/app.zip'));
 		$client = LambdaClient::factory([
-			'key'		=> env('LAMBDA_KEY'),
-			'secret'	=> env('LAMBDA_SECRET'),
+			'credentials' => [
+				'key'		=> env('LAMBDA_KEY'),
+				'secret'	=> env('LAMBDA_SECRET'),
+			],
 			'region'	=> env('LAMBDA_REGION'),
+			'version'	=> '2015-03-31'
 		]);
 		$response = $client->updateFunctionCode([
 			'FunctionName' 	=> env('LAMBDA_NAME'),
-			'ZipFile'		=> base64_encode($data),
+			'ZipFile'		=> $data,
 			'Publish'		=> true,
 		]);
-		var_dump($response);
 	}
 
 	private function createZipFile() {
 		if (!extension_loaded('zip')) {
-			return false;
+			throw new \Exception('ZIP Extension not loaded.');
 		}
-		$zip = new \ZipArchive();
-		if (!$zip->open(storage_path('app/app.zip'), \ZIPARCHIVE::CREATE)) {
-			return false;
-		}
-		$files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator('.'), \RecursiveIteratorIterator::SELF_FIRST);
 
-		foreach ($files as $file) {
-			$file = str_replace('\\', '/', $file);
-			$parts = explode('/', $file);
+		$rootPath = realPath('.');
+		$zip = new ZipArchive();
+
+		if (!$zip->open(storage_path('app/app.zip'), ZipArchive::CREATE | ZipArchive::OVERWRITE)) {
+			return false;
+		}
+
+		$files = new RecursiveIteratorIterator(
+			new RecursiveDirectoryIterator($rootPath), 
+			RecursiveIteratorIterator::LEAVES_ONLY
+		);
+		foreach ($files as $name => $file) {
+			if ($file->isDir()) {
+				continue;
+			}
+			$filePath = $file->getRealPath();
+			$relativePath = substr($filePath, strlen($rootPath) + 1);
+			$relativePath = str_replace('\\', '/', $relativePath);
+
+			$parts = explode('/', $relativePath);
+
 			if (in_array($parts[count($parts) - 1], ['app.zip', '.', '..', '.env'])) {
 				continue;
 			}
 			if (in_array('.git', $parts)) {
 				continue;
 			}
-			if (is_dir($file) === true) {
-				$zip->addEmptyDir(str_replace('./', '', $file) . '/');
-			} else if (is_file($file) === true) {
-				$zip->addFromString(str_replace('./', '', $file), file_get_contents($file));
+			$zip->addFile($filePath, $relativePath);
+			if (in_array('php-cgi', $parts)) {
+				$zip->setExternalAttributesName($relativePath, ZipArchive::OPSYS_UNIX, 2180972544);
 			}
 		}
 		return $zip->close();
 	}
 }
-
