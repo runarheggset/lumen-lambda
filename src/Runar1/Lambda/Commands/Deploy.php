@@ -54,9 +54,14 @@ class Deploy extends Command {
 			'version'	=> '2015-03-31'
 		]);
 		$response = $client->updateFunctionCode([
-			'FunctionName' 	=> env('LAMBDA_NAME'),
+			'FunctionName' 	=> $this->argument('name'),
 			'ZipFile'		=> $data,
 			'Publish'		=> true,
+		]);
+		$client->createAlias([
+    		'FunctionName' 		=> $this->argument('name'),
+    		'Name' 				=> 'v' . $response->get('Version'),
+			'FunctionVersion' 	=> $response->get('Version'),
 		]);
 	}
 
