@@ -38,6 +38,7 @@ For more indepth tips, read this excellent blog post: https://cwhite.me/hosting-
  
 ## History
 
+- Version 1.3.2 (2017-05-31) - Deploy command is creating alias matching version
 - Version 1.3.1 (2017-05-29) - Added parameter to deploy command
 - Version 1.3.0 (2017-05-29) - Added command to deploy function
 - Version 1.2.0 (2017-05-17) - Added curl certificate
