@@ -16,21 +16,13 @@ Add the service provider in `bootstrap/app.php`:
 $app->register(Runar1\Lambda\LambdaServiceProvider::class);
 ```
 
-Require the helper file first in `bootstrap/app.php`:
-```php
-require_once __DIR__.'/../vendor/runar1/lumen-lambda/src/helpers.php';
-```
-Before 
-```php
-require_once __DIR__.'/../vendor/autoload.php';
-```
-
 ## Usage
 
 The project comes with a prebuilt php-cgi-7.0.16. Feel free to build your own.
 
 - Create a lambda function on AWS.
 - Make sure lumen is writing to /tmp or not at all.
+- Run ```php artisan lambda:deploy {name}``` to deploy your app.
 - Set lambda handler to ```vendor/runar1/lumen-lambda/index.handler```
 - Point AWS API Gateway to your newly generated lambda function.
 
@@ -46,6 +38,7 @@ For more indepth tips, read this excellent blog post: https://cwhite.me/hosting-
  
 ## History
 
+- Version 1.3.1 (2017-05-29) - Added parameter to deploy command
 - Version 1.3.0 (2017-05-29) - Added command to deploy function
 - Version 1.2.0 (2017-05-17) - Added curl certificate
 - Version 1.1.2 (2017-05-11) - Fixed bugs with POST requests

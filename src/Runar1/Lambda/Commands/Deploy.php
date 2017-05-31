@@ -17,7 +17,7 @@ class Deploy extends Command {
 	 *
 	 * @var string
 	 */
-	protected $signature = 'lambda:deploy';
+	protected $signature = 'lambda:deploy {name}';
 
 	/**
 	 * The console command description.
